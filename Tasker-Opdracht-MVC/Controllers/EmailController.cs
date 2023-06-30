@@ -14,9 +14,9 @@ public class EmailController : Controller
     {
         try
         {
-            string toEmail = "ohqwintentje@gmail.com";
-            string hostEmail = "quintenvnimwegen@gmail.com";
-            string? apiKey = "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";
+            string toEmail = "MyToEmail";
+            string hostEmail = "MyHostEmail";
+            string? apiKey = "MySecretAPIKeyYouShouldNotUseButUShouldUseEnvironmentVariablesMuchSaver";
             string? recaptchaResponse = Request.Form["g-recaptcha-response"];
             model.TimeSend = DateTime.Now;
 
@@ -87,7 +87,7 @@ public class EmailController : Controller
     public static async Task<bool> SendEmail(string toEmail, string emailMessage)
     {
         string hostEmail = "quintenvnimwegen@gmail.com";
-        string? apiKey = /*Environment.GetEnvironmentVariable("SENDGRID_API_KEY");*/ "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";
+        string? apiKey = /*Environment.GetEnvironmentVariable("SENDGRID_API_KEY");*/ "MySecretAPIKeyYouShouldNotUseButUShouldUseEnvironmentVariablesMuchSaver";
         using (var client = new HttpClient())
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
@@ -108,7 +108,7 @@ public class EmailController : Controller
     //Validate Recaptcha
     private async Task<bool> ValidateRecaptcha(string recaptchaResponse)
     {
-        var _recaptchaSecretKey = "6LclT4ckAAAAABZf8mivpyj85G9tU4F80RjaZK6t";
+        var _recaptchaSecretKey = "MySecretAPIKeyYouShouldNotUseButUShouldUseEnvironmentVariablesMuchSaver";
 
         using (var client = new HttpClient())
         {
