@@ -1,0 +1,56 @@
+﻿@{
+	ViewData["Title"] = "Contact";
+}
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+@*<script type="text/javascript">
+	var onloadCallback = function () {
+		alert("grecaptcha is ready!");
+	};
+</script>*@
+<body>
+	<div class="page">
+		<section class="contact">
+			<div class="contact-header">
+				<h1>Neem contact op met Quinten</h1>
+			</div>
+			@if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+			{
+				<div class="succes-msg">@TempData["SuccessMessage"]</div>
+			}
+			@if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+			{
+				<div class="error-msg">@TempData["ErrorMessage"]</div>
+			}
+			@if (!string.IsNullOrEmpty(TempData["ErrorMessage2"] as string))
+			{
+				<div class="error-msg">@TempData["ErrorMessag2"]</div>
+			}
+			<form action="@Url.Action("Send", "Email")" method="post" class="form-contactpagina">
+				@*	@Html.AntiForgeryToken()*@
+				<div class="form-contactpagina__inputelement">
+					<label for="onderwerp">Onderwerp: </label>
+					<input type="text" name="Subject" id="subject" value="@Model?.Subject">
+				</div>
+
+				<div class="form-contactpagina__inputelement">
+					<label for="email">Email: </label>
+					<input type="text" name="FromEmail" id="email" value="@Model?.fromEmail">
+				</div>
+
+				<div class="form-contactpagina__inputelement">
+					<label for="bericht">Bericht: </label>
+					<textarea name="Message" cols="30" rows="7" placeholder="Typ hier uw bericht...">@Model?.Message</textarea>
+				</div>
+
+				<div class="g-recaptcha" id="recaptcha" data-sitekey="6LclT4ckAAAAAOlVS_K1eTJvyqx9v4W2yFgWYn7v"></div>
+				<br />
+				<input type="submit" value="Versturen" id="send-button">
+
+				<div class="form-contactpagina__inputelement">
+					<input name="reset-form" type="reset" id="reset-button">
+				</div>
+			</form>
+		</section>
+	</div>
+</body>

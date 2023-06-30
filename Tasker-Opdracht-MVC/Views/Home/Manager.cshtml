@@ -1,0 +1,62 @@
+﻿@model ChangeRoleViewModel
+
+<h1>Rollen bewerken</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Rol bewerken</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@user.Email</td>
+                <td>
+                    @if (user.UserRoles.Count == 0)
+                    {
+                        <spam>geen rol</spam>
+                    }
+                    @foreach (var role in user.UserRoles)
+                    {
+                        <span>@role.Name</span>
+                    }
+                </td>
+                <td>
+                    <form asp-controller="Home" asp-action="UpdateRole" method="post">
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <select name="roleId" required="true">
+                            <option value="">Selecteer rol</option>
+                            @foreach (var role in Model.Roles.Where(r => !user.UserRoles.Any(ur => ur.Name == r.Name)))
+                            {
+                                <option value="@role.Id">@role.Name</option>
+                            }
+                        </select>
+                        @if (user.UserRoles.Count == 0)
+                        {
+                            <button type="submit">Rol toevoegen</button>
+                        }
+                        else
+                        {
+                            <button type="submit">Rol bewerken</button>
+                        }
+                    </form>
+                </td>
+                @if (user.UserRoles.Count != 0)
+                {
+                    <td>
+                        <form asp-controller="Home" asp-action="RemoveRole" method="post">
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <button type="submit">Rol verwijderen</button>
+                    </form>
+                </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

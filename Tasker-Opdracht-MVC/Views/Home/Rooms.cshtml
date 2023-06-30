@@ -1,0 +1,69 @@
+﻿@{
+	ViewData["Title"] = "Rooms";
+}
+@using Microsoft.AspNetCore.Identity
+@using Tasker_Opdracht_MVC.Areas.Identity.Data
+@model LeaderboardModel
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Rooms</title>
+</head>
+<body>
+	@if (SignInManager.IsSignedIn(User))
+	{
+		var user = await UserManager.GetUserAsync(User);
+		<div class="room-container">
+			<form id="join-form" method="post">
+				<label for="player-name">Je naam: </label>
+				<input type="text" id="player-name" name="playerName" readonly disabled value="@user.FirstName @user.LastName">
+				<input type="submit" value="Join">
+			</form>
+		</div>
+	}
+	else
+	{
+		<div class="room-container">
+			<form id="join-form" method="post">
+				<label for="player-name">Vul je naam in: </label>
+				<input type="text" id="player-name" name="playerName">
+				<input type="submit" value="Join">
+			</form>
+		</div>
+	}
+	<div id="temp-message"></div>
+
+	<div class="leaderboard">
+		<h1>Leaderboard</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Rank</th>
+					<th>Name</th>
+					<th>Wins</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (Model != null)
+				{
+					@foreach (var player in Model.Leaderboard)
+					{
+						<tr>
+							<td>@player.Rank</td>
+							<td>@player.Name</td>
+							<td>@player.Wins</td>
+						</tr>
+					}
+				}
+			</tbody>
+		</table>
+	</div>
+	<script src="~/js/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
+	<script src="~/js/room.js" asp-append-version="true"></script>
+</body>
+</html>

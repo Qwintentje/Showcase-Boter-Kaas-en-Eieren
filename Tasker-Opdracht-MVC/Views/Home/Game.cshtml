@@ -1,0 +1,36 @@
+﻿@{
+	ViewData["Title"] = "Game";
+}
+
+<body>
+	<div class="game-container">
+		<h1>Tic Tac Toe</h1>
+		<div class="result-message" id="result-message"></div>
+		<div class="game-wrapper">
+			<div class="player-names">
+				<div class="player player1" id="player1-name"></div>
+				<div class="player player2" id="player2-name"></div>
+			</div>
+			<div class="board">
+				<div class="cell"></div>
+				<div class="cell"></div>
+				<div class="cell"></div>
+				<div class="cell"></div>
+				<div class="cell"></div>
+				<div class="cell"></div>
+				<div class="cell"></div>
+				<div class="cell"></div>
+				<div class="cell"></div>
+			</div>
+		</div>
+		<div class="buttons">
+			<button id="replay-button">Speel nog een keer</button>
+			<button id="leave-button">Leave Game</button>
+		</div>
+	</div>
+	<script src="~/js/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
+	<script src="~/js/connection.js" asp-append-version="true"></script>
+
+
+
+</body>

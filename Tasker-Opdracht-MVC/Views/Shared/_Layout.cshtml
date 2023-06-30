@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Tasker_Opdracht_MVC.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Tasker_Opdracht_MVC</title>
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" asp-append-version="true" s>
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin asp-append-version="true">
+	<link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+	<header>
+		<nav>
+			<p>Developer profiel</p>
+			<a asp-area="" asp-controller="Home" asp-action="AboutMe">About Me</a>
+			<a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+			<a asp-area="" asp-controller="Home" asp-action="Rooms">Rooms</a>
+			@if (SignInManager.IsSignedIn(User))
+			{
+				<a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Manager">Manager</a>
+				<a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Administrator">Administrator</a>
+			}
+			@if (SignInManager.IsSignedIn(User))
+			{
+				var user = await UserManager.GetUserAsync(User);
+				<a id="manage" class="nav-link text-dark account-nav" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hallo @user.FirstName!</a>
+				<form id="logoutForm" class="form-inline account-nav-right" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("AboutMe", "Home", new { area = "" })">
+					<button id="logout" type="submit" class="nav-link btn btn-link text-dark account-nav-right">Uitloggen</button>
+				</form>
+			}
+			else
+			{
+				<a class="account-nav " asp-area="Identity" asp-page="/Account/Register">Account aanmaken</a>
+				<a class="account-nav-right" asp-area="Identity" asp-page="/Account/Login">Inloggen</a>
+			}
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+	<div class="container">
+
+		<section class="gdpr-consent hide">
+			<div class="gdpr-consent__description">
+				<p>
+					Deze website gebruikt cookies.
+					We gebruiken cookies om content te personaliseren, voor social media en het analyseren
+					van verkeer op de website, advertenties.
+				</p>
+			</div>
+
+			<div class="gdpr-consent__choice">
+				<button class="gdpr-consent__button--accept">Ja, natuurlijk</button>
+				<button class="gdpr-consent__button--reject">Nee, misschien later</button>
+			</div>
+		</section>
+	</div>
+	<footer>
+		<p>Neem ook hier even een kijkje</p>
+		<ul>
+			<li>
+				<a href="https://instagram.com/quintenvn._?igshid=YmMyMTA2M2Y=" target="_blank">
+					<img src="..\..\images\instagram.png" class="media-image">
+				</a>
+			</li>
+			<li>
+				<a href="https://github.com/Qwintentje" target="_blank">
+					<img src="..\..\images\github.png"
+						 class="media-image">
+				</a>
+			</li>
+		</ul>
+	</footer>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/gdpr.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

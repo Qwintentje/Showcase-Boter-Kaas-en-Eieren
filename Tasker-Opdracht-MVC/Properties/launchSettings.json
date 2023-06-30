@@ -1,0 +1,30 @@
+{
+  "profiles": {
+    "Tasker_Opdracht_MVC": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SENDGRID_API_KEY": "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",
+        "reCAPTCHA_SECRET_KEY": "6LclT4ckAAAAABZf8mivpyj85G9tU4F80RjaZK6t"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7009;http://localhost:5191"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:25717",
+      "sslPort": 44395
+    }
+  }
+}

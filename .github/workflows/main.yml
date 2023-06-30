@@ -1,0 +1,25 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main  # Change to your branch name if different
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Build and test
+        run: dotnet test
+        
+      - name: Cancel push on test failure
+        if: ${{ failure() }}
+        run: echo "Tests failed. Cancelling the push." && exit
